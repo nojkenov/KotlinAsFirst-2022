@@ -2,9 +2,7 @@
 
 package lesson2.task2
 
-import lesson1.task1.numberRevert
 import lesson1.task1.sqr
-import java.lang.Math.sqrt
 
 /**
  * Пример
@@ -20,10 +18,9 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
-fun isNumberHappy(number: Int): Boolean {
-    if (((number - number % 1000) / 1000 + (number % 1000 - number % 100) / 100) == ((number % 100 - number % 10) / 10 + number % 10)) return true
-    else return false
-}
+fun isNumberHappy(number: Int): Boolean =
+    (((number - number % 1000) / 1000 + (number % 1000 - number % 100) / 100) ==
+    ((number % 100 - number % 10) / 10 + number % 10))
 
 /**
  * Простая (2 балла)
@@ -61,10 +58,8 @@ fun daysInMonth(month: Int, year: Int): Int {
 fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
-): Boolean {
-    if ((r2 - r1) >= kotlin.math.sqrt(sqr(x1 - x2) + sqr(y1 - y2))) return true
-    else return false
-}
+): Boolean =
+    (r2 - r1) >= kotlin.math.sqrt(sqr(x1 - x2) + sqr(y1 - y2))
 
 /**
  * Средняя (3 балла)
@@ -76,8 +71,7 @@ fun circleInside(
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    if (a <= r && (b <= s || c <= s)) return true
-    else if (b <= r && (a <= s || c <= s)) return true
-    else if (c <= r && (a <= s || b <= s)) return true
-    else return false
+    return if (a <= r && (b <= s || c <= s)) true
+    else if (b <= r && (a <= s || c <= s)) true
+    else c <= r && (a <= s || b <= s)
 }
