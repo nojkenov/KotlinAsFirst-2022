@@ -110,10 +110,10 @@ fun fib(n: Int): Int {
  */
 fun minDivisor(n: Int): Int {
     val answer = 0
-    for (i in 2..n) {
+    for (i in 2..n / 2 + 1) {
         if (n % i == 0) return i
     }
-    return answer
+    return n
 }
 
 /**
