@@ -2,8 +2,10 @@
 
 package lesson3.task1
 
+import java.util.function.IntToDoubleFunction
 import kotlin.math.min
 import kotlin.math.sqrt
+import kotlin.math.pow
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -180,7 +182,16 @@ fun lcm(m: Int, n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    var answer = 0
+    for (i in 2..min(m, n)) {
+        answer += when {
+            m % i == 0 && n % i == 0 -> 1
+            else -> 0
+        }
+    }
+    return answer == 0
+}
 
 /**
  * Средняя (3 балла)
@@ -189,7 +200,15 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var s = 0
+    var a = n
+    while (a > 0) {
+        s = s * 10 + a % 10
+        a = (a - a % 10) / 10
+    }
+    return s
+}
 
 /**
  * Средняя (3 балла)
@@ -200,7 +219,7 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean = revert(n) == n
 
 /**
  * Средняя (3 балла)

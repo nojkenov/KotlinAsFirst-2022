@@ -3,6 +3,7 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
+import kotlin.math.sqrt
 
 /**
  * Пример
@@ -59,7 +60,7 @@ fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
 ): Boolean =
-    (r2 - r1) >= kotlin.math.sqrt(sqr(x1 - x2) + sqr(y1 - y2))
+    (r2 - r1) >= sqrt(sqr(x1 - x2) + sqr(y1 - y2))
 
 /**
  * Средняя (3 балла)
