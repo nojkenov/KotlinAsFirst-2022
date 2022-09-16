@@ -168,10 +168,8 @@ fun collatzSteps(x: Int): Int {
  */
 fun lcm(m: Int, n: Int): Int {
     val min = min(m, n)
-    val answer = 0
-    for (i in min..m * n) {
-        if (i % m == 0 && i % n == 0) return i
-    }
+    var answer = m * n
+    for (i in 2..min) if (m % i == 0 && n % i == 0) answer /= i
     return answer
 }
 
