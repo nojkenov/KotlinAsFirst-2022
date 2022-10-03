@@ -157,7 +157,7 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    val mx: Double = max(max(a, b), c)
+    val mx = max(max(a, b), c)
     return when {
         mx > a + b + c - mx -> -1
         (a * a + b * b + c * c - 2 * mx * mx) / 2 > 0 -> 0
@@ -174,12 +174,11 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    return when {
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
+    when {
         c in a..b && d in a..b -> d - c
         a in c..d && b in c..d -> b - a
         c in a..b -> b - c
         d in a..b -> d - a
         else -> -1
     }
-}

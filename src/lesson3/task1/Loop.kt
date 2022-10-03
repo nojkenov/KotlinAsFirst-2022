@@ -1,9 +1,8 @@
-@file:Suppress("UNUSED_PARAMETER")
-
 package lesson3.task1
 
 import lesson1.task1.sqr
 import java.util.function.IntToDoubleFunction
+import kotlin.math.abs
 import kotlin.math.min
 import kotlin.math.sqrt
 import kotlin.math.pow
@@ -21,7 +20,7 @@ import kotlin.math.pow
 fun factorial(n: Int): Double {
     var result = 1.0
     for (i in 1..n) {
-        result = result * i // Please do not fix in master
+        result *= i // Please do not fix in master
     }
     return result
 }
@@ -78,7 +77,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int {
     var count = 1
-    var num = n
+    var num = abs(n)
     while (num >= 10) {
         num /= 10
         count += 1
@@ -111,7 +110,8 @@ fun fib(n: Int): Int {
  */
 fun minDivisor(n: Int): Int {
     val answer = 0
-    for (i in 2..n / 2 + 1) {
+    if (n % 2 == 0) return 2
+    for (i in 3..n / 2 + 1 step 2) {
         if (n % i == 0) return i
     }
     return n
@@ -150,13 +150,9 @@ fun collatzSteps(x: Int): Int {
     var count = 0
     var n = x
     while (n != 1) {
-        if ((n % 2) == 0) {
-            n /= 2
-            count += 1
-        } else {
-            n = 3 * n + 1
-            count += 1
-        }
+        if ((n % 2) == 0) n /= 2
+        else n = (3 * n) + 1
+        count += 1
     }
     return count
 }
@@ -173,6 +169,7 @@ fun lcm(m: Int, n: Int): Int {
     for (i in 2..min) if (m % i == 0 && n % i == 0) answer /= i
     return answer
 }
+
 
 /**
  * Средняя (3 балла)
