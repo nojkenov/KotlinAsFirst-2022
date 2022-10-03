@@ -15,6 +15,8 @@ import kotlin.math.sqrt
  *
  * Найти число корней квадратного уравнения ax^2 + bx + c = 0
  */
+
+
 fun quadraticRootNumber(a: Double, b: Double, c: Double): Int {
     val discriminant = discriminant(a, b, c)
     return when {

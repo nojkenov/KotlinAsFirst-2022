@@ -2,6 +2,7 @@
 
 package lesson3.task1
 
+import lesson1.task1.sqr
 import java.util.function.IntToDoubleFunction
 import kotlin.math.min
 import kotlin.math.sqrt
@@ -260,7 +261,24 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var i = 1
+    var counter = 0
+    while (true) {
+        counter += digitNumber(sqr(i))
+        if (counter >= n) {
+            break
+        }
+        i += 1
+    }
+    var answer = sqr(i)
+    while (counter > n) {
+        answer /= 10
+        counter--
+    }
+    return answer % 10
+
+}
 
 /**
  * Сложная (5 баллов)
@@ -271,4 +289,20 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var i = 1
+    var counter = 0
+    while (true) {
+        counter += digitNumber(fib(i))
+        if (counter >= n) {
+            break
+        }
+        i += 1
+    }
+    var answer = fib(i)
+    while (counter > n) {
+        answer /= 10
+        counter--
+    }
+    return answer % 10
+}
