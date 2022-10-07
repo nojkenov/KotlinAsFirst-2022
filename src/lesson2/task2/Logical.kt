@@ -39,14 +39,14 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
 fun daysInMonth(month: Int, year: Int): Int =
-    when{
-        ((month in 1..7 && month % 2 == 1) || month in 8..12 && month % 2 == 0) -> 31
-        (year % 400 == 0 && month == 2) -> 29
-        (year % 100 == 0 && month == 2) -> 28
-        (year % 4 == 0 && month == 2) -> 29
-        (year % 4 != 0 && month == 2) -> 28
+    when {
+        (month in 1..7 && month % 2 == 1) || month in 8..12 && month % 2 == 0 -> 31
+        year % 400 == 0 && month == 2 -> 29
+        year % 100 == 0 && month == 2 -> 28
+        year % 4 == 0 && month == 2 -> 29
+        year % 4 != 0 && month == 2 -> 28
         else -> 30
-}
+    }
 
 /**
  * Простая (2 балла)
@@ -57,7 +57,7 @@ fun daysInMonth(month: Int, year: Int): Int =
  */
 fun circleInside(
     x1: Double, y1: Double, r1: Double,
-    x2: Double, y2: Double, r2: Double
+    x2: Double, y2: Double, r2: Double,
 ): Boolean =
     (r2 - r1) >= sqrt(sqr(x1 - x2) + sqr(y1 - y2))
 
@@ -70,8 +70,10 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    return if (a <= r && (b <= s || c <= s)) true
-    else if (b <= r && (a <= s || c <= s)) true
-    else c <= r && (a <= s || b <= s)
-}
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =
+    when {
+        a <= r && (b <= s || c <= s) -> true
+        b <= r && (a <= s || c <= s) -> true
+        c <= r && (a <= s || b <= s) -> true
+        else -> false
+    }

@@ -1,11 +1,9 @@
 package lesson3.task1
 
 import lesson1.task1.sqr
-import java.util.function.IntToDoubleFunction
 import kotlin.math.abs
 import kotlin.math.min
 import kotlin.math.sqrt
-import kotlin.math.pow
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -94,9 +92,8 @@ fun digitNumber(n: Int): Int {
 fun fib(n: Int): Int {
     var a = 0
     var b = 1
-    var x = 0
     for (i in 1..n) {
-        x = a
+        val x = a
         a = b
         b += x
     }
@@ -109,11 +106,7 @@ fun fib(n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    val answer = 0
-    if (n % 2 == 0) return 2
-    for (i in 3..n / 2 + 1 step 2) {
-        if (n % i == 0) return i
-    }
+    for (i in 2..sqrt(n.toDouble()).toInt()) if (n % i == 0) return i
     return n
 }
 
@@ -179,14 +172,10 @@ fun lcm(m: Int, n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    var answer = 0
-    for (i in 2..min(m, n)) {
-        answer += when {
-            m % i == 0 && n % i == 0 -> 1
-            else -> 0
-        }
+    return when {
+        m * n == lcm(m, n) -> true
+        else -> false
     }
-    return answer == 0
 }
 
 /**
