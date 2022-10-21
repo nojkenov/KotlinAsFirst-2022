@@ -226,7 +226,7 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
 fun factorize(n: Int): List<Int> {
     var n1 = n
     var del = 2
-    var list = mutableListOf<Int>()
+    val list = mutableListOf<Int>()
     while (n1 != 1) {
         while (n1 % del == 0) {
             list.add(del)
@@ -310,33 +310,17 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    val units = arrayListOf<String>("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
-    val tens = arrayListOf<String>("X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
-    val hundreds = arrayListOf<String>("C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
-    val thousand = arrayListOf<String>("M", "MM", "MMM")
-    val answer = mutableListOf<String>()
-    var x = n
-    var k = 0
-    if (x >= 1000) {
-        k = x / 1000 % 10
-        answer.add(thousand[k - 1])
-        x %= 1000
+    val romans = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    val arabs = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    var answer = ""
+    var n = n
+    for ((i, value) in arabs.withIndex()) {
+        if (n % value != n) {
+            answer += romans[i].repeat (n / value)
+            n %= value
+        }
     }
-    if (x >= 100) {
-        k = x / 100 % 10
-        answer.add(hundreds[k - 1])
-        x %= 100
-    }
-    if (x >= 10) {
-        k = x / 10 % 10
-        answer.add(tens[k - 1])
-        x %= 10
-    }
-    if (x >= 1) {
-        k = x % 10
-        answer.add(units[x - 1])
-    }
-    return answer.joinToString(separator = "")
+    return answer
 }
 
 /**
