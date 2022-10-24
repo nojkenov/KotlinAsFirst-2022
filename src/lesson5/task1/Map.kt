@@ -209,7 +209,17 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String = TODO()
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
+    val first = mutableMapOf<Double, String>()
+    for ((key, value) in stuff) {
+        if (value.first == kind) {
+            first[value.second] = key
+        }
+    }
+    return if (first.keys.isEmpty()) null else first[first.keys.min()]
+
+
+}
 
 /**
  * Средняя (3 балла)
@@ -221,6 +231,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
+//нужно перебрать баобаб по каждому символу, записать их в список и провериьт их наличие в другом
 
 /**
  * Средняя (4 балла)
@@ -234,7 +245,21 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
+fun extractRepeats(list: List<String>): Map<String, Int> {
+    val answer = mutableMapOf<String, Int>()
+    for (i in list) {
+        if (i in answer.keys) {
+            answer[i] = answer[i]!! + 1
+        } else {
+            answer[i] = 1
+        }
+    }
+    val ansfin = answer.toMutableMap()
+    for ((key, value) in answer) {
+        if (value == 1) ansfin.remove(key)
+    }
+    return ansfin
+}
 
 /**
  * Средняя (3 балла)
@@ -248,7 +273,18 @@ fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean = TODO()
+fun hasAnagrams(words: List<String>): Boolean {
+    val answer = mutableListOf<List<Char>>()
+    val char = mutableListOf<Char>()
+    for (i in words) {
+        for (k in i) {
+            char.add(k)
+        }
+        answer.add(char.sorted())
+        char.clear()
+    }
+    return answer.toSet().size != answer.size && words.isNotEmpty()
+}
 
 /**
  * Сложная (5 баллов)
