@@ -115,13 +115,7 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    val answer = 0
-    for (i in n - 1 downTo 1) {
-        if (n % i == 0) return i
-    }
-    return answer
-}
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая (2 балла)
@@ -143,8 +137,8 @@ fun collatzSteps(x: Int): Int {
     var count = 0
     var n = x
     while (n != 1) {
-        if ((n % 2) == 0) n /= 2
-        else n = (3 * n) + 1
+        if (n % 2 == 0) n /= 2
+        else n = 3 * n + 1
         count += 1
     }
     return count
@@ -156,12 +150,7 @@ fun collatzSteps(x: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int {
-    val min = min(m, n)
-    var answer = m * n
-    for (i in 2..min) if (m % i == 0 && n % i == 0) answer /= i
-    return answer
-}
+fun lcm(m: Int, n: Int): Int = TODO()
 
 
 /**
@@ -171,12 +160,7 @@ fun lcm(m: Int, n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {
-    return when {
-        m * n == lcm(m, n) -> true
-        else -> false
-    }
-}
+fun isCoPrime(m: Int, n: Int): Boolean = TODO()
 
 /**
  * Средняя (3 балла)
