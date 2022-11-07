@@ -192,7 +192,23 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> = TODO()
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
+    val answer = mutableMapOf<String, Double>()
+    val count = mutableMapOf<String, Int>()
+    for ((key, value) in stockPrices) {
+        if (key in answer.keys) {
+            answer[key] = answer[key]!! + value
+            count[key] = count[key]!! + 1
+        } else {
+            answer[key] = value
+            count[key] = 1
+        }
+    }
+    for ((key, value) in count) {
+        answer[key] = answer[key]!! / value
+    }
+    return answer
+}
 
 /**
  * Средняя (4 балла)
@@ -230,8 +246,8 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
-//нужно перебрать баобаб по каждому символу, записать их в список и провериьт их наличие в другом
+fun canBuildFrom(chars: List<Char>, word: String): Boolean =
+    word.lowercase().toSet().sorted() == chars.sorted().map { it.lowercaseChar() }
 
 /**
  * Средняя (4 балла)
@@ -336,10 +352,33 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  * используя то, что вы узнали в данном уроке.
  *
  * Например:
- *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
+ *   findSumOfTwo(listOf(1, 2, 2), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    var answer = Pair(-1, -1)
+    val map = mutableMapOf<Int, Int>()
+    for (i in list.indices) map[list[i]] = i
+    for (i in list.indices) {
+        if (number - list[i] in map.keys) {
+            if (list[i] != number - list[i]) {
+                answer = Pair(i, map[number - list[i]]!!)
+                break
+            } else {
+                if (i != map[number - list[i]]) {
+                    answer = Pair(i, map[number - list[i]]!!)
+                    break
+                }
+            }
+        }
+    }
+
+    return if (answer.first < answer.second) Pair(answer.first, answer.second) else Pair(
+        answer.second,
+        answer.first
+    )
+}
+
 
 /**
  * Очень сложная (8 баллов)

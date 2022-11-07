@@ -2,6 +2,9 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
+import java.lang.IndexOutOfBoundsException
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -74,7 +77,37 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+val list = listOf(
+    "января",
+    "февраля",
+    "марта",
+    "апреля",
+    "мая",
+    "июня",
+    "июля",
+    "августа",
+    "сентября",
+    "октября",
+    "ноября",
+    "декабря"
+)
+
+fun dateStrToDigit(str: String): String {
+    try {
+        val data = str.split(" ").toMutableList()
+        val day = data[0].toInt()
+        val year = data[2].toInt()
+        val month = list.indexOf(data[1]) + 1
+        if (month == 0 || data.size != 3) return ""
+        if (daysInMonth(month, year) < day) return ""
+        return String.format("%02d.%02d.%d", day, month, year)
+    } catch (e: IndexOutOfBoundsException) {
+        return ""
+    }
+
+
+}
+
 
 /**
  * Средняя (4 балла)
@@ -149,7 +182,15 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val data = str.lowercase().split(" ")
+    var counter = 0
+    for (i in 0..data.size - 2) {
+        if (data[i] == data[i + 1]) return counter
+        counter += data[i].length + 1
+    }
+    return -1
+}
 
 /**
  * Сложная (6 баллов)
@@ -162,7 +203,18 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    val list = description.replace(";","").split(" ")
+    var cost = 0.0
+    var answer = ""
+    for (i in 1..list.size - 1 step 2) {
+        if (cost < list[i].toDouble()) {
+            cost = list[i].toDouble()
+            answer = list[i - 1]
+        }
+    }
+    return answer
+}
 
 /**
  * Сложная (6 баллов)
