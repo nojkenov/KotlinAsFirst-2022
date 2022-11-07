@@ -98,7 +98,7 @@ fun dateStrToDigit(str: String): String {
         val day = data[0].toInt()
         val year = data[2].toInt()
         val month = list.indexOf(data[1]) + 1
-        if (month == 0 || data.size != 3) return ""
+        if (month == 0 || data.size != 3 || str == "") return ""
         if (daysInMonth(month, year) < day) return ""
         return String.format("%02d.%02d.%d", day, month, year)
     } catch (e: IndexOutOfBoundsException) {
@@ -207,8 +207,8 @@ fun mostExpensive(description: String): String {
     val list = description.replace(";","").split(" ")
     var cost = 0.0
     var answer = ""
-    for (i in 1..list.size - 1 step 2) {
-        if (cost < list[i].toDouble()) {
+    for (i in 1 until list.size step 2) {
+        if (cost <= list[i].toDouble()) {
             cost = list[i].toDouble()
             answer = list[i - 1]
         }
