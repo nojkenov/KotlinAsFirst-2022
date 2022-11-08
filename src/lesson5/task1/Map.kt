@@ -137,9 +137,7 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = b + a 
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
-    for ((key, value) in b) {
-        if (a[key] == value) a.remove(key)
-    }
+    for ((key, value) in b) if (a[key] == value) a.remove(key)
 }
 
 /**
@@ -246,10 +244,9 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    if (word == "") return true
-    return word.lowercase().toSet().sorted() == chars.sorted().map { it.lowercaseChar() }
-}
+fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
+//:(
+
 /**
  * Средняя (4 балла)
  *
@@ -271,11 +268,7 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
             answer[i] = 1
         }
     }
-    val ansfin = answer.toMutableMap()
-    for ((key, value) in answer) {
-        if (value == 1) ansfin.remove(key)
-    }
-    return ansfin
+    return answer.filterValues { value -> value != 1 }
 }
 
 /**
@@ -290,18 +283,8 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean {
-    val answer = mutableListOf<List<Char>>()
-    val char = mutableListOf<Char>()
-    for (i in words) {
-        for (k in i) {
-            char.add(k)
-        }
-        answer.add(char.sorted())
-        char.clear()
-    }
-    return answer.toSet().size != answer.size && words.isNotEmpty()
-}
+fun hasAnagrams(words: List<String>): Boolean = TODO()
+//:(
 
 /**
  * Сложная (5 баллов)
@@ -365,11 +348,9 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
             if (list[i] != number - list[i]) {
                 answer = Pair(i, map[number - list[i]]!!)
                 break
-            } else {
-                if (i != map[number - list[i]]) {
-                    answer = Pair(i, map[number - list[i]]!!)
-                    break
-                }
+            } else if (i != map[number - list[i]]) {
+                answer = Pair(i, map[number - list[i]]!!)
+                break
             }
         }
     }

@@ -4,7 +4,9 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
+import java.lang.StringBuilder
 import kotlin.math.sqrt
+import kotlin.math.pow
 
 // Урок 4: списки
 // Максимальное количество баллов = 12
@@ -121,31 +123,14 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double {
-    var sum = 0.0
-    for (i in v.indices) {
-        sum += sqr(v[i])
-    }
-    sum = sqrt(sum)
-    return sum
-}
+fun abs(v: List<Double>): Double = sqrt(v.sumOf { it * it })
 
 /**
  * Простая (2 балла)
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double {
-    var sum = 0.0
-    var k = 0
-    if (list.isEmpty()) return 0.0
-    for (i in list.indices) {
-        sum += list[i]
-        k += 1
-    }
-    sum /= k
-    return sum
-}
+fun mean(list: List<Double>): Double = if (list.isEmpty()) 0.0 else list.sum() / list.size
 
 /**
  * Средняя (3 балла)
@@ -184,25 +169,11 @@ fun times(a: List<Int>, b: List<Int>): Int {
  *
  * Рассчитать значение многочлена при заданном x:
  * p(x) = p0 + p1*x + p2*x^2 + p3*x^3 + ... + pN*x^N.
- * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
+ * Коэффициенты многочлена заданы списком p:(p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun pow(x: Int, count: Int): Int {
-    var sum = 1
-    for (i in 1..count) {
-        sum *= x
-    }
-    return sum
-}
-
-fun polynom(p: List<Int>, x: Int): Int {
-    var sum = 0
-    if (p.isEmpty()) return 0
-    for (i in p.indices) {
-        sum += p[i] * pow(x, i)
-    }
-    return sum
-}
+fun polynom(p: List<Int>, x: Int): Int =
+    p.mapIndexed { index, value -> (value * x.toDouble().pow(index)).toInt() }.sum()
 
 /**
  * Средняя (3 балла)
@@ -262,7 +233,8 @@ fun convert(n: Int, base: Int): List<Int> {
         s /= base
     }
     if (list.isEmpty()) list.add(0)
-    return list.reversed()
+    list.reverse()
+    return list
 }
 
 /**
@@ -312,15 +284,15 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
 fun roman(n: Int): String {
     val romans = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
     val arabs = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
-    var answer = ""
+    var answer = StringBuilder()
     var n = n
     for ((i, value) in arabs.withIndex()) {
         if (n % value != n) {
-            answer += romans[i].repeat (n / value)
+            answer.append(romans[i].repeat(n / value))
             n %= value
         }
     }
-    return answer
+    return answer.toString()
 }
 
 /**
@@ -331,3 +303,35 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String = TODO()
+//    val answer = mutableListOf<String>()
+//    val units = listOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+//    val otherUnits = listOf("", "одна", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+//    val tens = listOf(
+//        "",
+//        "одинадцать",
+//        "двенадцать",
+//        "тринадцать",
+//        "четырнадцать",
+//        "пятнядцать",
+//        "шестнадцать",
+//        "семнадцать",
+//        "восемнадцать",
+//        "девятнадцать",
+//    )
+//    val otherTens =
+//        listOf(
+//            "",
+//            "десять",
+//            "двадцать",
+//            "тридцать",
+//            "сорок",
+//            "пятьдесят",
+//            "шестьдесят",
+//            "семьдесят",
+//            "восемьдесят",
+//            "девяносто"
+//        )
+//    val hundreds =
+//        listOf("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот")
+
+
