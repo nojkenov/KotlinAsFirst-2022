@@ -284,7 +284,7 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
 fun roman(n: Int): String {
     val romans = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
     val arabs = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
-    var answer = StringBuilder()
+    val answer = StringBuilder()
     var n = n
     for ((i, value) in arabs.withIndex()) {
         if (n % value != n) {

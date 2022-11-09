@@ -77,36 +77,8 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-val list = listOf(
-    "января",
-    "февраля",
-    "марта",
-    "апреля",
-    "мая",
-    "июня",
-    "июля",
-    "августа",
-    "сентября",
-    "октября",
-    "ноября",
-    "декабря"
-)
 
-fun dateStrToDigit(str: String): String {
-    try {
-        val data = str.split(" ").toMutableList()
-        val day = data[0].toInt()
-        val year = data[2].toInt()
-        val month = list.indexOf(data[1]) + 1
-        if (month == 0 || data.size != 3 || str == "") return ""
-        if (daysInMonth(month, year) < day) return ""
-        return String.format("%02d.%02d.%d", day, month, year)
-    } catch (e: IndexOutOfBoundsException) {
-        return ""
-    }
-
-
-}
+fun dateStrToDigit(str: String): String = TODO()
 
 
 /**
