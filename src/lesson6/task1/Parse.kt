@@ -107,7 +107,11 @@ fun dateDigitToStr(digital: String): String = TODO()
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String {
+    val phone = phone.replace(" ", "").replace("-", "")
+    if (!phone.matches(Regex("""(\+\d+)?(\(\d+\))?\d+"""))) return ""
+    return phone.replace("(", "").replace(")", "")
+}
 
 /**
  * Средняя (5 баллов)
@@ -119,7 +123,12 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    if (!jumps.matches(Regex("""(\d+|-|%)( (\d+|-|%))*"""))) return -1
+    val jumps = jumps.replace("%", "").replace("-", "").replace(Regex("""\s+"""), " ")
+    if (jumps == " ") return -1
+    return jumps.split(" ").max().toInt()
+}
 
 /**
  * Сложная (6 баллов)
@@ -132,7 +141,12 @@ fun bestLongJump(jumps: String): Int = TODO()
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    if (!jumps.matches(Regex("""(\d+ [-+%]+)( \d+ [-+%]+)*"""))) return -1
+    val jumps = jumps.replace(Regex("""[%-]"""), "")
+    val list = jumps.split(" ")
+    return list[list.lastIndexOf("+") - 1].toInt()
+}
 
 /**
  * Сложная (6 баллов)
@@ -176,7 +190,7 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть больше нуля либо равны нулю.
  */
 fun mostExpensive(description: String): String {
-    val list = description.replace(";","").split(" ")
+    val list = description.replace(";", "").split(" ")
     var cost = 0.0
     var answer = ""
     for (i in 1 until list.size step 2) {
