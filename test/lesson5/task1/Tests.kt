@@ -3,6 +3,7 @@ package lesson5.task1
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
+import java.lang.IllegalStateException
 
 class Tests {
     @Test
@@ -235,7 +236,7 @@ class Tests {
         assertFalse(canBuildFrom(emptyList(), "foo"))
         assertTrue(canBuildFrom(listOf('a', 'b', 'o'), "baobab"))
         assertFalse(canBuildFrom(listOf('a', 'm', 'r'), "Marat"))
-        assertTrue(lesson5.task1.canBuildFrom(listOf('a'),""))
+        assertTrue(lesson5.task1.canBuildFrom(listOf('a'), ""))
     }
 
     @Test
@@ -336,5 +337,17 @@ class Tests {
                 450
             )
         )
+    }
+
+    @Test
+    fun myFun_1() {
+        assertEquals(
+            setOf("Вбербанк", "Политек Ведра"), myFun_1(
+                mapOf("Производство напитков" to 4, "Горнодобывающая промышленность" to 12, "Банковские операции" to 9),
+                "ООО Горняк : Горнодобывающая промышленность - 100000\nВбербанк : Банковские операции - 190000\nПолитек Ведра : Образование - 9000000",
+                15000
+            )
+        )
+        assertThrows(IllegalStateException::class.java) { myFun_1(mapOf("fff" to 5), "GFFGFGFG", 341) }
     }
 }

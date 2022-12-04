@@ -63,7 +63,13 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Подчёркивание в середине и/или в конце строк значения не имеет.
  */
 fun deleteMarked(inputName: String, outputName: String) {
-    TODO()
+    val answer = File(outputName).bufferedWriter()
+    val reader = File(inputName).readLines()
+    for (line in reader) {
+        if (line.isEmpty()) answer.write("\n")
+        else if (line[0] != '_') answer.write(line + "\n")
+    }
+    answer.close()
 }
 
 /**
@@ -76,13 +82,18 @@ fun deleteMarked(inputName: String, outputName: String) {
  *
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val text = File(inputName).readText().lowercase()
     val answer = mutableMapOf<String, Int>()
-    val reader = File(inputName).bufferedReader()
-    var s = ""
-    for (line in reader.readLines()) {
-        s += line
+    var counter = 0
+    for (i in substrings) {
+        var s = text.indexOf(i.lowercase())
+        while (s != -1) {
+            counter++
+            s = text.indexOf(i.lowercase(), s + 1)
+        }
+        answer[i] = counter
+        counter = 0
     }
-    println(s)
     return answer
 }
 
@@ -122,7 +133,15 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    val reader = File(inputName).readLines()
+    val answer = File(outputName).bufferedWriter()
+    val maxLength = reader.maxOfOrNull { it.trim().length }
+    if (maxLength != null) {
+        for (line in reader) {
+            answer.write(" ".repeat((maxLength - line.trim().length) / 2) + line.trim() + "\n")
+        }
+    }
+    answer.close()
 }
 
 /**
@@ -153,7 +172,10 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    TODO()
+    val reader = File(inputName).readLines()
+    for (line in reader) {
+        line.replace(Regex("""\s+"""), " ")
+    }
 }
 
 /**
