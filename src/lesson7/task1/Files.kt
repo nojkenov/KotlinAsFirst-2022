@@ -3,6 +3,7 @@
 package lesson7.task1
 
 import java.io.File
+import kotlin.math.max
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -173,9 +174,29 @@ fun centerFile(inputName: String, outputName: String) {
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
     val reader = File(inputName).readLines()
-    for (line in reader) {
-        line.replace(Regex("""\s+"""), " ")
+    val answer = File(outputName).bufferedWriter()
+    val maxLength = reader.maxOfOrNull { it.replace(Regex("""\s+"""), " ").trim().length }
+    if (maxLength != null) {
+        for (line in reader) {
+            val l = line.replace(Regex("""\s+"""), " ").trim()
+            val list = l.split(" ").toMutableList()
+            if (l.isEmpty()) answer.write("\n")
+            else if (list.size == 1) answer.write(l + "\n")
+            else {
+                var count = maxLength - l.length
+                while (count != 0) {
+                    for (i in 0..list.size - 2) {
+                        list[i] += " "
+                        count--
+                        if (count == 0) break
+                    }
+                }
+                answer.write(list.joinToString(" "))
+                answer.write("\n")
+            }
+        }
     }
+    answer.close()
 }
 
 /**
