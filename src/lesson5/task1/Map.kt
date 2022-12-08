@@ -247,7 +247,6 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
-//:(
 
 /**
  * Средняя (4 балла)
@@ -286,7 +285,6 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
 fun hasAnagrams(words: List<String>): Boolean = TODO()
-//:(
 
 /**
  * Сложная (5 баллов)
