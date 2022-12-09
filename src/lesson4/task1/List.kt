@@ -302,36 +302,62 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
-//    val answer = mutableListOf<String>()
-//    val units = listOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
-//    val otherUnits = listOf("", "одна", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
-//    val tens = listOf(
-//        "",
-//        "одинадцать",
-//        "двенадцать",
-//        "тринадцать",
-//        "четырнадцать",
-//        "пятнядцать",
-//        "шестнадцать",
-//        "семнадцать",
-//        "восемнадцать",
-//        "девятнадцать",
-//    )
-//    val otherTens =
-//        listOf(
-//            "",
-//            "десять",
-//            "двадцать",
-//            "тридцать",
-//            "сорок",
-//            "пятьдесят",
-//            "шестьдесят",
-//            "семьдесят",
-//            "восемьдесят",
-//            "девяносто"
-//        )
-//    val hundreds =
-//        listOf("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот")
+fun russian(n: Int): String {
+    val answer = mutableListOf<String>()
+    val first = n / 1000
+    val second = n % 1000
+    val units = listOf("", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val otherUnits = listOf("", "одна", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val tens = listOf(
+        "",
+        "одинадцать",
+        "двенадцать",
+        "тринадцать",
+        "четырнадцать",
+        "пятнядцать",
+        "шестнадцать",
+        "семнадцать",
+        "восемнадцать",
+        "девятнадцать",
+    )
+    val otherTens =
+        listOf(
+            "",
+            "десять",
+            "двадцать",
+            "тридцать",
+            "сорок",
+            "пятьдесят",
+            "шестьдесят",
+            "семьдесят",
+            "восемьдесят",
+            "девяносто"
+        )
+    val hundreds =
+        listOf("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот")
+    if (first != 0) {
+        answer.add(hundreds[first / 100])
+        if (first / 10 % 10 == 1) {
+            answer.add(tens[first % 10])
+            answer.add("тысяч")
+        } else {
+            answer.add(otherTens[first / 10 % 10])
+            val last = first % 10
+            answer.add(otherUnits[last])
+            if (last.toString().matches(Regex("""[056789]"""))) answer.add("тысяч")
+            else if (last.toString().matches(Regex("""[234]"""))) answer.add("тысячи")
+            else answer.add("тысяча")
+        }
+    }
+    answer.add(hundreds[second / 100])
+    if (second / 10 % 10 == 1) {
+        answer.add(tens[second % 10])
+    } else {
+        answer.add(otherTens[second / 10 % 10])
+        val last = second % 10
+        answer.add(units[last])
+    }
+    return answer.joinToString(separator = " ").trim().replace(Regex("""\s+"""), " ")
+}
 
 
