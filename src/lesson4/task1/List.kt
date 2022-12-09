@@ -338,7 +338,8 @@ fun russian(n: Int): String {
     if (first != 0) {
         answer.add(hundreds[first / 100])
         if (first / 10 % 10 == 1) {
-            answer.add(tens[first % 10])
+            if (first % 10 == 0) answer.add(otherTens[1])
+            else answer.add(tens[first % 10])
             answer.add("тысяч")
         } else {
             answer.add(otherTens[first / 10 % 10])
