@@ -140,11 +140,7 @@ class Line(val b: Double, val angle: Double) {
      * Найти точку пересечения с другой линией.
      * Для этого необходимо составить и решить систему из двух уравнений (каждое для своей прямой)
      */
-    fun crossPoint(other: Line): Point =
-        Point(
-            (b * cos(other.angle) - other.b * cos(angle)) / sin(other.angle - angle),
-            (other.b * sin(angle) - b * sin(other.angle)) / sin(angle - other.angle),
-        )
+    fun crossPoint(other: Line): Point = TODO()
 
     override fun equals(other: Any?) = other is Line && angle == other.angle && b == other.b
 
@@ -169,25 +165,14 @@ fun lineBySegment(s: Segment): Line = TODO()
  *
  * Построить прямую по двум точкам
  */
-fun lineByPoints(a: Point, b: Point): Line {
-    var angle = atan((a.y - b.y) / (a.x - b.x))
-    when {
-        angle >= PI -> angle %= PI
-        angle < 0 -> angle += PI
-        else -> angle
-    }
-    return Line(a, angle)
-}
+fun lineByPoints(a: Point, b: Point): Line = TODO()
 
 /**
  * Сложная (5 баллов)
  *
  * Построить серединный перпендикуляр по отрезку или по двум точкам
  */
-fun bisectorByPoints(a: Point, b: Point): Line {
-    val c = Point((a.x + b.x) / 2, (b.y + a.y) / 2)
-    return Line(c, (lineByPoints(a, b).angle + PI / 2) % PI)
-}
+fun bisectorByPoints(a: Point, b: Point): Line = TODO()
 
 /**
  * Средняя (3 балла)
@@ -212,10 +197,7 @@ fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> = TODO()
  * (построить окружность по трём точкам, или
  * построить окружность, описанную вокруг треугольника - эквивалентная задача).
  */
-fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
-    val o = bisectorByPoints(a, c).crossPoint(bisectorByPoints(a, b))
-    return Circle(o, o.distance(a))
-}
+fun circleByThreePoints(a: Point, b: Point, c: Point): Circle = TODO()
 
 /**
  * Очень сложная (10 баллов)
