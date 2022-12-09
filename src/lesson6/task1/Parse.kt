@@ -201,6 +201,7 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть больше нуля либо равны нулю.
  */
 fun mostExpensive(description: String): String = TODO()
+
 /**
  * Сложная (6 баллов)
  *

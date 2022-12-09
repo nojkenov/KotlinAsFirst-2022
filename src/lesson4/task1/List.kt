@@ -352,7 +352,8 @@ fun russian(n: Int): String {
     }
     answer.add(hundreds[second / 100])
     if (second / 10 % 10 == 1) {
-        answer.add(tens[second % 10])
+        if (second % 10 == 0) answer.add(otherTens[1])
+        else answer.add(tens[second % 10])
     } else {
         answer.add(otherTens[second / 10 % 10])
         val last = second % 10
