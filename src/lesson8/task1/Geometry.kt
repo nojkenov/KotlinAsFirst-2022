@@ -3,7 +3,11 @@
 package lesson8.task1
 
 import lesson1.task1.sqr
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
+import kotlin.math.atan
 
 // Урок 8: простые классы
 // Максимальное количество баллов = 40 (без очень трудных задач = 11)
@@ -114,12 +118,7 @@ fun diameter(vararg points: Point): Segment = TODO()
  * Построить окружность по её диаметру, заданному двумя точками
  * Центр её должен находиться посередине между точками, а радиус составлять половину расстояния между ними
  */
-fun circleByDiameter(diameter: Segment): Circle {
-    val a = diameter.begin
-    val b = diameter.end
-    val c = Point((a.x + b.x) / 2, (b.y + a.y) / 2)
-    return Circle(c, c.distance(b))
-}
+fun circleByDiameter(diameter: Segment): Circle = TODO()
 
 /**
  * Прямая, заданная точкой point и углом наклона angle (в радианах) по отношению к оси X.
@@ -172,10 +171,7 @@ fun lineByPoints(a: Point, b: Point): Line = TODO()
  *
  * Построить серединный перпендикуляр по отрезку или по двум точкам
  */
-fun bisectorByPoints(a: Point, b: Point): Line {
-    val c = Point((a.x + b.x) / 2, (b.y + a.y) / 2)
-    return Line(c, (atan(-(a.x - b.x) / (a.y - b.y))))
-}
+fun bisectorByPoints(a: Point, b: Point): Line = TODO()
 
 /**
  * Средняя (3 балла)
@@ -201,6 +197,14 @@ fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> = TODO()
  * построить окружность, описанную вокруг треугольника - эквивалентная задача).
  */
 fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
+    val lineA = Line(c, (atan(-(a.x - b.x) / (a.y - b.y))))
+    val lineB = Line(a, (atan(-(c.x - b.x) / (c.y - b.y))))
+    val o =
+        Point(
+            (lineB.b * cos(lineA.angle) - lineA.b * cos(lineB.angle)) / sin(lineA.angle - lineB.angle),
+            (lineA.b * sin(lineB.angle) - lineB.b * sin(lineA.angle)) / sin(lineB.b - lineA.angle),
+        )
+    return Circle(o, o.distance(a))
 }
 
 /**
@@ -215,4 +219,3 @@ fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
  * соединяющий две самые удалённые точки в данном множестве.
  */
 fun minContainingCircle(vararg points: Point): Circle = TODO()
-
