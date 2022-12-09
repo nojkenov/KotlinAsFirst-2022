@@ -3,11 +3,7 @@
 package lesson8.task1
 
 import lesson1.task1.sqr
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
-import kotlin.math.atan
+import kotlin.math.*
 
 // Урок 8: простые классы
 // Максимальное количество баллов = 40 (без очень трудных задач = 11)
@@ -118,7 +114,12 @@ fun diameter(vararg points: Point): Segment = TODO()
  * Построить окружность по её диаметру, заданному двумя точками
  * Центр её должен находиться посередине между точками, а радиус составлять половину расстояния между ними
  */
-fun circleByDiameter(diameter: Segment): Circle = TODO()
+fun circleByDiameter(diameter: Segment): Circle {
+    val a = diameter.begin
+    val b = diameter.end
+    val c = Point((a.x + b.x) / 2, (b.y + a.y) / 2)
+    return Circle(c, c.distance(b))
+}
 
 /**
  * Прямая, заданная точкой point и углом наклона angle (в радианах) по отношению к оси X.
@@ -126,7 +127,7 @@ fun circleByDiameter(diameter: Segment): Circle = TODO()
  * или: y * cos(angle) = x * sin(angle) + b, где b = point.y * cos(angle) - point.x * sin(angle).
  * Угол наклона обязан находиться в диапазоне от 0 (включительно) до PI (исключительно).
  */
-class Line private constructor(val b: Double, val angle: Double) {
+class Line(val b: Double, val angle: Double) {
     init {
         require(angle >= 0 && angle < PI) { "Incorrect line angle: $angle" }
     }
@@ -139,7 +140,11 @@ class Line private constructor(val b: Double, val angle: Double) {
      * Найти точку пересечения с другой линией.
      * Для этого необходимо составить и решить систему из двух уравнений (каждое для своей прямой)
      */
-    fun crossPoint(other: Line): Point = TODO()
+    fun crossPoint(other: Line): Point =
+        Point(
+            (b * cos(other.angle) - other.b * cos(angle)) / sin(other.angle - angle),
+            (other.b * sin(angle) - b * sin(other.angle)) / sin(angle - other.angle),
+        )
 
     override fun equals(other: Any?) = other is Line && angle == other.angle && b == other.b
 
@@ -164,14 +169,25 @@ fun lineBySegment(s: Segment): Line = TODO()
  *
  * Построить прямую по двум точкам
  */
-fun lineByPoints(a: Point, b: Point): Line = TODO()
+fun lineByPoints(a: Point, b: Point): Line {
+    var angle = atan((a.y - b.y) / (a.x - b.x))
+    when {
+        angle >= PI -> angle %= PI
+        angle < 0 -> angle += PI
+        else -> angle
+    }
+    return Line(a, angle)
+}
 
 /**
  * Сложная (5 баллов)
  *
  * Построить серединный перпендикуляр по отрезку или по двум точкам
  */
-fun bisectorByPoints(a: Point, b: Point): Line = TODO()
+fun bisectorByPoints(a: Point, b: Point): Line {
+    val c = Point((a.x + b.x) / 2, (b.y + a.y) / 2)
+    return Line(c, (lineByPoints(a, b).angle + PI / 2) % PI)
+}
 
 /**
  * Средняя (3 балла)
@@ -196,7 +212,10 @@ fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> = TODO()
  * (построить окружность по трём точкам, или
  * построить окружность, описанную вокруг треугольника - эквивалентная задача).
  */
-fun circleByThreePoints(a: Point, b: Point, c: Point): Circle = TODO()
+fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
+    val o = bisectorByPoints(a, c).crossPoint(bisectorByPoints(a, b))
+    return Circle(o, o.distance(a))
+}
 
 /**
  * Очень сложная (10 баллов)
