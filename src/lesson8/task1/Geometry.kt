@@ -190,7 +190,7 @@ fun lineByPoints(a: Point, b: Point): Line {
     when {
         angle >= PI -> angle -= PI
         angle < 0 -> angle += PI
-        else -> angle += 0.0
+        else -> return Line(a, angle)
     }
     return Line(a, angle)
 }
