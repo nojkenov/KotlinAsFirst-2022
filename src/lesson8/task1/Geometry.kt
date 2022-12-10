@@ -188,8 +188,8 @@ fun lineBySegment(s: Segment): Line = lineByPoints(s.begin, s.end)
 fun lineByPoints(a: Point, b: Point): Line {
     var angle = atan((a.y - b.y) / (a.x - b.x))
     when {
-        angle >= PI -> angle -= PI
-        angle < 0 -> angle += PI
+        angle >= PI -> angle %= PI
+        angle < 0 -> angle = atan((b.y - a.y) / (a.x - b.x))
         else -> return Line(a, angle)
     }
     return Line(a, angle)
@@ -229,10 +229,7 @@ fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> = TODO()
  * (построить окружность по трём точкам, или
  * построить окружность, описанную вокруг треугольника - эквивалентная задача).
  */
-fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
-    val o = bisectorByPoints(a, b).crossPoint(bisectorByPoints(a, c))
-    return Circle(o, o.distance(a))
-}
+fun circleByThreePoints(a: Point, b: Point, c: Point): Circle = TODO()
 
 /**
  * Очень сложная (10 баллов)
