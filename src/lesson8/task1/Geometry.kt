@@ -178,33 +178,20 @@ class Line(val b: Double, val angle: Double) {
  *
  * Построить прямую по отрезку
  */
-fun lineBySegment(s: Segment): Line = lineByPoints(s.begin, s.end)
+fun lineBySegment(s: Segment): Line = TODO()
 
 /**
  * Средняя (3 балла)
  *
  * Построить прямую по двум точкам
  */
-fun lineByPoints(a: Point, b: Point): Line {
-    var angle = atan((a.y - b.y) / (a.x - b.x))
-    when {
-        angle >= PI -> angle %= PI
-        angle < 0 -> angle = atan((b.y - a.y) / (a.x - b.x))
-        else -> return Line(a, angle)
-    }
-    return Line(a, angle)
-}
-
+fun lineByPoints(a: Point, b: Point): Line = TODO()
 /**
  * Сложная (5 баллов)
  *
  * Построить серединный перпендикуляр по отрезку или по двум точкам
  */
-fun bisectorByPoints(a: Point, b: Point): Line {
-    val angle = (lineByPoints(a, b).angle + PI / 2) % PI
-    val c = Point((a.x + b.x) / 2.0, (a.y + b.y) / 2.0)
-    return Line(c, angle)
-}
+fun bisectorByPoints(a: Point, b: Point): Line = TODO()
 
 /**
  * Средняя (3 балла)
