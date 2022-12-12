@@ -540,7 +540,9 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         else count += digitNumber(bMinus)
         answer.write(" ".repeat(count1) + "$c\n")
         answer.write(" ".repeat(count2) + "-$bMinus\n")
-        answer.write(" ".repeat(count2) + "-".repeat(digitNumber(bMinus) + 1) + "\n")
+        if (digitNumber(bMinus) == digitNumber(aMinus))
+            answer.write(" ".repeat(count2) + "-".repeat(digitNumber(bMinus) + 1) + "\n")
+        else answer.write(" ".repeat(count1) + "-".repeat(digitNumber(aMinus)) + "\n")
         raz = aMinus - bMinus
     }
     if (ans == 0 && digitNumber(lhv) >= digitNumber(rhv)) {
