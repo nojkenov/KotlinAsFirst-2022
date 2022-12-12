@@ -535,7 +535,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         raz = aMinus - bMinus
     }
     if (ans == 0 && digitNumber(lhv) == digitNumber(rhv)) answer.write("$lhv")
-    else answer.write(" ".repeat(b - a + digitNumber(lhv)) + lhv % rhv)
+    else answer.write(" ".repeat(b - a + digitNumber(lhv) - digitNumber(lhv % rhv) + 1) + lhv % rhv)
     answer.close()
 }
 
