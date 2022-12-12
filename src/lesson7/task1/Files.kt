@@ -2,6 +2,7 @@
 
 package lesson7.task1
 
+import lesson3.task1.digitNumber
 import java.io.File
 import kotlin.math.max
 
@@ -501,6 +502,39 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  *
  */
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
-    TODO()
+    val answer = File(outputName).bufferedWriter()
+    val ans = lhv / rhv
+    var bMinus = ans.toString()[0].digitToInt() * rhv
+    var aMinus = 0
+    if (ans == 0) bMinus = 0
+    else {
+        for (i in lhv.toString()) {
+            aMinus = aMinus * 10 + i.digitToInt()
+            if (aMinus >= bMinus) break
+        }
+    }
+    answer.write(" ".repeat(digitNumber(bMinus) + 1 - digitNumber(aMinus)) + "$lhv | $rhv\n")
+    answer.write("-$bMinus" + " ".repeat(digitNumber(lhv) + 3 - digitNumber(aMinus)) + ans + "\n")
+    answer.write("-".repeat(digitNumber(bMinus) + 1) + "\n")
+    val b = digitNumber(bMinus)
+    val a = digitNumber(aMinus)
+    var count = digitNumber(bMinus) + 1
+    var raz = aMinus - bMinus
+    for (i in 1 until digitNumber(ans)) {
+        println(raz)
+        val c = raz.toString().plus(lhv.toString()[a - 1 + i])
+        val count1 = count - digitNumber(raz)
+        aMinus = c.toInt()
+        bMinus = ans.toString()[i].digitToInt() * rhv
+        val count2 = count - digitNumber(bMinus)
+        count += digitNumber(bMinus)
+        answer.write(" ".repeat(count1) + "$c\n")
+        answer.write(" ".repeat(count2) + "-$bMinus\n")
+        answer.write(" ".repeat(count2) + "-".repeat(digitNumber(bMinus) + 1) + "\n")
+        raz = aMinus - bMinus
+    }
+
+    answer.write(" ".repeat(b - a + digitNumber(lhv)) + lhv % rhv)
+    answer.close()
 }
 
