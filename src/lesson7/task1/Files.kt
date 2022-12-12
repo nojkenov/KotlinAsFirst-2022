@@ -513,18 +513,18 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
             if (aMinus >= bMinus) break
         }
     }
-    if (ans == 0 && digitNumber(lhv) >= digitNumber(rhv)) {
-        if (digitNumber(lhv) == 1) answer.write(
-            " ".repeat(
-                digitNumber(bMinus) + 1 - digitNumber(
-                    aMinus
-                )
-            ) + "$lhv | $rhv\n"
-        )
-        else answer.write("$lhv | $rhv\n")
-    } else answer.write(" ".repeat(digitNumber(bMinus) + 1 - digitNumber(aMinus)) + "$lhv | $rhv\n")
-    answer.write("-$bMinus" + " ".repeat(digitNumber(lhv) + 3 - digitNumber(aMinus)) + ans + "\n")
-    answer.write("-".repeat(digitNumber(bMinus) + 1) + "\n")
+    if (ans == 0) {
+        if (digitNumber(lhv) == 1) answer.write(" $lhv | $rhv\n-0   0\n" + "--\n")
+        else {
+            answer.write("$lhv | $rhv\n")
+            answer.write(" ".repeat(digitNumber(lhv) - 2) + "-0   0\n")
+            answer.write("-".repeat(digitNumber(lhv)) + "\n")
+        }
+    } else {
+        answer.write(" ".repeat(digitNumber(bMinus) + 1 - digitNumber(aMinus)) + "$lhv | $rhv\n")
+        answer.write("-$bMinus" + " ".repeat(3 + digitNumber(lhv) - digitNumber(aMinus)) + "$ans\n")
+        answer.write("-".repeat(digitNumber(bMinus) + 1) + "\n")
+    }
     val b = digitNumber(bMinus)
     val a = digitNumber(aMinus)
     var count = digitNumber(bMinus) + 1
