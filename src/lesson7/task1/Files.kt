@@ -536,7 +536,8 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         aMinus = c.toInt()
         bMinus = ans.toString()[i].digitToInt() * rhv
         val count2 = count - digitNumber(bMinus)
-        count += digitNumber(bMinus)
+        if (digitNumber(bMinus) == c.length) count += digitNumber(bMinus) - 1
+        else count += digitNumber(bMinus)
         answer.write(" ".repeat(count1) + "$c\n")
         answer.write(" ".repeat(count2) + "-$bMinus\n")
         answer.write(" ".repeat(count2) + "-".repeat(digitNumber(bMinus) + 1) + "\n")
