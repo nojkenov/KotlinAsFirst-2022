@@ -528,11 +528,12 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     val a = digitNumber(aMinus)
     var raz = aMinus - bMinus
     var count = digitNumber(bMinus) + 1 - digitNumber(raz)
+    var count2 = 0
     for (i in 1 until digitNumber(ans)) {
         val c = raz.toString().plus(lhv.toString()[a - 1 + i])
         aMinus = c.toInt()
         bMinus = ans.toString()[i].digitToInt() * rhv
-        val count2 = count + c.length - digitNumber(bMinus) - 1
+        count2 = count + c.length - digitNumber(bMinus) - 1
         raz = aMinus - bMinus
         answer.write(" ".repeat(count) + "$c\n")
         answer.write(" ".repeat(count2) + "-$bMinus\n")
