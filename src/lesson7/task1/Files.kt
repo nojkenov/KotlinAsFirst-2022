@@ -525,7 +525,6 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         answer.write("-$bMinus" + " ".repeat(3 + digitNumber(lhv) - digitNumber(aMinus)) + "$ans\n")
         answer.write("-".repeat(digitNumber(bMinus) + 1) + "\n")
     }
-
     val a = digitNumber(aMinus)
     var raz = aMinus - bMinus
     var count = digitNumber(bMinus) + 1 - digitNumber(raz)
@@ -533,24 +532,17 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         val c = raz.toString().plus(lhv.toString()[a - 1 + i])
         aMinus = c.toInt()
         bMinus = ans.toString()[i].digitToInt() * rhv
-        val count1 = count
         val count2 = count + c.length - digitNumber(bMinus) - 1
         raz = aMinus - bMinus
-        answer.write(" ".repeat(count1) + "$c\n")
+        answer.write(" ".repeat(count) + "$c\n")
         answer.write(" ".repeat(count2) + "-$bMinus\n")
         if (digitNumber(bMinus) == digitNumber(aMinus))
             answer.write(" ".repeat(count2) + "-".repeat(digitNumber(bMinus) + 1) + "\n")
-        else answer.write(" ".repeat(count1) + "-".repeat(digitNumber(aMinus)) + "\n")
+        else answer.write(" ".repeat(count) + "-".repeat(digitNumber(aMinus)) + "\n")
         count += c.length - digitNumber(raz)
     }
     if (ans == 0) {
-        if (digitNumber(lhv) == 1) answer.write(
-            " ".repeat(
-                digitNumber(bMinus) + 1 - digitNumber(
-                    aMinus
-                )
-            ) + "$lhv"
-        )
+        if (digitNumber(lhv) == 1) answer.write(" ".repeat(digitNumber(bMinus) + 1 - digitNumber(aMinus)) + "$lhv")
         else answer.write("$lhv")
     } else answer.write(" ".repeat(count) + lhv % rhv)
     answer.close()
