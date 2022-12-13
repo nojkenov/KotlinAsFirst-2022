@@ -5,6 +5,7 @@ package lesson5.task1
 import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
 import java.security.cert.TrustAnchor
+import kotlin.math.max
 
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
@@ -383,51 +384,25 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
  *     450
  *   ) -> emptySet()
  */
-fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
-
-/**
- * В таблице table содержится информация о налогах на прибыль
- * для различных типов предприятий в следующем виде:
- *
- * Производство напитков - 4%
- * Горнодобывающая промышленность - 12%
- * Банковские операции - 9%
- *
- * Во входном тексте taxes содержится информация о предприятиях
- * в следующем формате:
- * *Название предприятия* : *Тип предприятия* - *Прибыль*
- *
- * Например:
- * ООО Горняк : Горнодобывающая промышленность - 100000
- * Вбербанк : Банковские операции - 190000
- * Политек Ведра : Образование - 9000000
- *
- * Помимо этого на вход подается также параметр `limit`.
- * Необходимо для каждого предприятия рассчитать сумму налогов
- * для уплаты в бюджет и вывести названия предприятий,
- * сумма налогов которых будет превышать параметр `limit`.
- * Если в table не содержится информации о размере налога
- * для типа предприятия, то применяется стандартная ставка 30%
- *
- * При нарушении формата следует выбросить IllegalStateException.
- *
- * Имя функции и тип результата функции предложить самостоятельно;
- * в задании указан тип Collection<Any>, то есть коллекция объектов
- * произвольного типа, можно (и нужно) изменить как вид коллекции,
- * так и тип её элементов.
- *
- * Кроме функции, следует написать тесты,
- * подтверждающие её работоспособность.
- */
-
-fun myFun_1(table: Map<String, Int>, taxes: String, limit: Int): Set<String> {
-    val map = mutableMapOf<String, Double>()
-    val taxes = taxes.split("\n")
-    for (i in taxes) {
-        if (!i.matches(Regex("""[ёЁА-я ]+ : [ёЁА-я ]+ - \d+"""))) throw IllegalStateException()
-        val (name, type, sum) = i.replace("-", ":").split(" : ")
-        map[name] = table.getOrDefault(type, 30).toDouble() / 100.0 * sum.toDouble()
+fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
+    val answer = mutableSetOf<String>()
+    val n = treasures.size
+    val matrix = MutableList(n + 1) { MutableList(capacity + 1) { 0 } }
+    val name = treasures.keys.toList()
+    val kands = treasures.values.toList()
+    for (i in 1..n) {
+        for (j in 1..capacity) {
+            if (j >= kands[i - 1].first) matrix[i][j] =
+                max(matrix[i - 1][j], matrix[i - 1][j - kands[i - 1].first] + kands[i - 1].second)
+            else matrix[i][j] = matrix[i - 1][j]
+        }
     }
-    val answer = map.filterValues { it.toInt() > limit }
-    return answer.keys
+    var sum = capacity
+    for (i in n downTo 1) {
+        if (matrix[i][sum] != matrix[i - 1][sum]) {
+            answer.add(name[i - 1])
+            sum -= kands[i - 1].first
+        }
+    }
+    return answer
 }
